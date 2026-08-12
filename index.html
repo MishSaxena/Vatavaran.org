@@ -1,0 +1,1161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Vatavaran encourages people to plant a tree on their birthday." />
+  <meta property="og:title" content="Vatavaran | Grow a Birthday Tree" />
+  <meta property="og:description" content="Pledge a tree on your birthday and get a printable certificate." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=1200&q=80" />
+  <title>Vatavaran | Grow a Birthday Tree</title>
+
+  <style>
+    :root {
+      --forest: #125c3f;
+      --deep: #092f25;
+      --leaf: #dfff72;
+      --mint: #eaf7dc;
+      --cream: #fffaf0;
+      --orange: #ff8552;
+      --text: #17352a;
+      --white: #ffffff;
+      --shadow: 0 18px 45px rgba(13, 73, 45, 0.14);
+      --max-width: 1100px;
+    }
+
+    * { box-sizing: border-box; scroll-behavior: smooth; }
+    html,body { height: 100%; }
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      line-height: 1.6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    a { color: inherit; }
+    .container { max-width: var(--max-width); margin: 0 auto; }
+
+    nav {
+      position: absolute;
+      z-index: 10;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--white);
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .logo .mark {
+      width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--leaf),var(--forest));box-shadow:0 6px 18px rgba(0,0,0,0.12);
+      display:inline-block;
+    }
+    .logo span { color: var(--leaf); }
+
+    .nav-links { display:flex; align-items:center; gap:18px; }
+    .nav-links a { color: white; text-decoration:none; font-weight:700; font-size:14px; }
+    .nav-links a:focus { outline:3px solid rgba(223,255,114,0.45); border-radius:6px; }
+
+    .hero {
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      padding: 150px 7% 90px;
+      color: white;
+      background:
+        linear-gradient(90deg, rgba(5, 48, 35, 0.94), rgba(5, 48, 35, 0.25)),
+        url("https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=1800&q=85")
+        center / cover no-repeat;
+    }
+
+    .hero-content { max-width: 680px; }
+    .eyebrow { color: var(--leaf); font-size: 13px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
+    .hero h1 { margin: 18px 0; font-size: clamp(36px, 6vw, 72px); line-height: 0.98; }
+    .hero p { max-width: 570px; font-size: clamp(16px, 2vw, 20px); line-height: 1.6; color: rgba(255,255,255,0.95); }
+
+    .button {
+      display:inline-block; border:0; border-radius:99px; padding:12px 20px; margin-top:14px;
+      background:var(--leaf); color:var(--deep); font-size:16px; font-weight:900; text-decoration:none; cursor:pointer;
+      transition:transform .16s ease, box-shadow .16s ease;
+    }
+    .button:focus { outline:3px solid rgba(0,0,0,0.08); }
+    .button:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+
+    .button-light { margin-left:8px; background: white; color:var(--forest); font-weight:700; }
+    .hero-actions { margin-top: 18px; display:flex; gap:10px; flex-wrap:wrap; }
+
+    .stats {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:18px; padding:28px 7%; background:var(--forest); color:white; text-align:center;
+    }
+    .stat-number { display:block; color:var(--leaf); font-size:36px; font-weight:900; }
+
+    section { padding: 85px 7%; }
+    .section-heading { max-width:700px; margin:0 auto 42px; text-align:center; }
+    .section-heading h2 { margin:8px 0 12px; font-size:44px; line-height:1.1; }
+    .section-heading p { margin:0; color:#274735; }
+
+    .two-column { display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:38px; max-width:var(--max-width); margin:0 auto; }
+    .two-column h2 { font-size: clamp(28px,4vw,44px); line-height:1.05; }
+    .card { padding:30px; border-radius:24px; background:white; box-shadow:var(--shadow); }
+    .pledge-card { border-left:8px solid var(--orange); }
+
+    .mint-section { background:var(--mint); }
+
+    .form { display:grid; gap:12px; }
+    .form label { font-weight:700; font-size:14px; color:var(--deep); }
+    .form input, .form textarea, .form select {
+      width:100%; padding:12px; border:1px solid #d3e0d2; border-radius:12px; background:white; color:var(--text); font:inherit;
+    }
+    .form textarea { min-height:120px; resize:vertical; }
+    .form input:focus, .form textarea:focus, .form select:focus { outline:3px solid rgba(223,255,114,0.7); border-color:var(--forest); }
+
+    .notice { display:none; margin-top:16px; padding:16px; border-radius:14px; background:#e2f8c8; color:var(--deep); }
+    .certificate { display:none; margin-top:18px; padding:24px; border:4px solid var(--forest); border-radius:18px; background:#fffdf2; text-align:center; }
+
+    .certificate h3 { margin:8px 0; color:var(--forest); font-size:26px; }
+    .certificate small { color:#557263; }
+
+    .tips-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .tip-icon { font-size:34px; }
+    .tip h3 { margin-bottom:4px; }
+
+    .gallery { display:grid; grid-template-columns:repeat(3,1fr); gap:17px; }
+    .gallery figure { margin:0; overflow:hidden; border-radius:20px; background:white; box-shadow:var(--shadow); display:flex; flex-direction:column; }
+    .gallery img { width:100%; height:240px; display:block; object-fit:cover; aspect-ratio: 4/3; }
+    .gallery figcaption { padding:14px; font-weight:700; color:var(--deep); }
+
+    footer { display:flex; justify-content:space-between; gap:20px; padding:38px 7%; background:var(--deep); color:white; flex-wrap:wrap; }
+    footer small { opacity:0.85; }
+
+    .back-to-top { color:var(--leaf); text-decoration:none; }
+
+    /* Responsive */
+    @media (max-width: 1000px) {
+      .two-column { grid-template-columns: 1fr; padding: 0 8px; }
+      .stats { grid-template-columns: 1fr 1fr 1fr; gap:10px; padding:20px 6%; }
+      .gallery img { height:220px; }
+      .hero { padding:110px 6% 70px; min-height:640px; }
+    }
+
+    @media (max-width: 760px) {
+      nav { padding: 18px 5%; }
+      .nav-links { display:none; }
+      .hero { min-height: 720px; padding:120px 6% 60px; }
+      .stats, .two-column, .tips-grid, .gallery { grid-template-columns:1fr; }
+      section { padding: 65px 6%; }
+      .section-heading h2, .two-column h2 { font-size: 32px; }
+      .gallery img { height:200px; }
+    }
+
+    /* Utility */
+    .muted { color:#56735f; }
+    .text-center { text-align:center; }
+    .sr-only { position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0; }
+  </style>
+</head>
+<body>
+  <nav role="navigation" aria-label="Main navigation">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+      <div class="logo" aria-hidden="false">
+        <span class="mark" aria-hidden="true"></span>
+        <span>Vatavaran <span>Grow</span></span>
+      </div>
+
+      <div class="nav-links" aria-hidden="true">
+        <a href="#about">About</a>
+        <a href="#pledge">Pledge</a>
+        <a href="#gallery">Gallery</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" role="banner" id="home">
+    <div class="hero-content container">
+      <div class="eyebrow">Plant on your birthday</div>
+      <h1>Grow a tree. Celebrate your birthday. Give back to the earth.</h1>
+      <p>Vatavaran helps you pledge a tree on your birthday — we'll help you record it, get a printable certificate, and share inspiration for planting native trees.</p>
+
+      <div class="hero-actions" role="group" aria-label="Call to action">
+        <a class="button" href="#pledge" id="start-pledge">Pledge a Tree</a>
+        <a class="button button-light" href="#about">Learn More</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="stats" aria-label="Key stats">
+    <div>
+      <span class="stat-number" id="total-pledges">0</span>
+      <div class="muted">Pledges</div>
+    </div>
+    <div>
+      <span class="stat-number" id="trees-planted">0</span>
+      <div class="muted">Trees recorded</div>
+    </div>
+    <div>
+      <span class="stat-number" id="countries">1</span>
+      <div class="muted">Places</div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-heading">
+      <h2>About Vatavaran</h2>
+      <p>We encourage people to plant a native tree on their birthday. Pledge, plant, and get a downloadable certificate you can print or share.</p>
+    </div>
+
+    <div class="two-column">
+      <div>
+        <div class="card pledge-card" aria-labelledby="pledge-card-title">
+          <h3 id="pledge-card-title">Why pledge?</h3>
+          <p>Birthdays are personal milestones — turning them into planting days helps our planet and creates a living legacy you can watch grow.</p>
+          <ul>
+            <li>Quick record of your pledge</li>
+            <li>Printable certificate for remembrance</li>
+            <li>Simple tips for planting and care</li>
+          </ul>
+        </div>
+      </div>
+
+      <aside class="card" aria-labelledby="how-to-title">
+        <h3 id="how-to-title">How it works</h3>
+        <ol>
+          <li>Fill in the pledge form with your name and birthday.</li>
+          <li>Choose a tree type and location (optional).</li>
+          <li>Download your certificate and plant on your birthday — or share with a friend.</li>
+        </ol>
+      </aside>
+    </div>
+  </section>
+
+  <section id="pledge" class="mint-section" aria-labelledby="pledge-heading">
+    <div class="section-heading">
+      <h2 id="pledge-heading">Make a Pledge</h2>
+      <p>Fill the short form below. Your pledge is stored in your browser and used to create a printable certificate instantly.</p>
+    </div>
+
+    <div class="container" style="max-width:880px;">
+      <div class="two-column" style="grid-template-columns:1fr 400px;">
+        <div>
+          <div class="card">
+            <form id="pledge-form" class="form" aria-describedby="pledge-desc">
+              <p id="pledge-desc" class="sr-only">Form to pledge a birthday tree. All fields except message are required.</p>
+
+              <div>
+                <label for="name">Your name</label>
+                <input id="name" name="name" type="text" placeholder="Your full name" required />
+              </div>
+
+              <div>
+                <label for="birthday">Birthday</label>
+                <input id="birthday" name="birthday" type="date" required />
+              </div>
+
+              <div>
+                <label for="tree">Tree type</label>
+                <select id="tree" name="tree" required>
+                  <option value="">Choose a species (native preferred)</option>
+                  <option>Neem</option>
+                  <option>Mango</option>
+                  <option>Peepal</option>
+                  <option>Jamun</option>
+                  <option>Local/native species</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="location">Location (city / region)</label>
+                <input id="location" name="location" type="text" placeholder="Optional — e.g., Mumbai, India" />
+              </div>
+
+              <div>
+                <label for="message">Message on certificate</label>
+                <textarea id="message" name="message" placeholder="Optional short message (e.g., 'Planted with love, 2026')"></textarea>
+              </div>
+
+              <div style="display:flex;gap:10px;align-items:center;">
+                <button type="submit" class="button" aria-live="polite">Create Certificate</button>
+                <button type="button" id="clear-pledges" class="button button-light" title="Clear local pledges">Clear</button>
+              </div>
+
+              <div class="notice" id="pledge-notice" role="status" aria-live="polite"></div>
+            </form>
+          </div>
+        </div>
+
+        <div>
+          <div class="card" aria-live="polite">
+            <h3>Your Certificate</h3>
+            <p class="muted">After creating a certificate you'll see a preview below with options to download or print.</p>
+
+            <div class="certificate" id="certificate-card" role="region" aria-labelledby="cert-title">
+              <h3 id="cert-title">Certificate preview</h3>
+              <canvas id="certificate-canvas" width="800" height="560" style="max-width:100%;border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,0.08);"></canvas>
+              <div style="margin-top:12px;display:flex;gap:8px;justify-content:center;">
+                <button id="download-cert" class="button">Download PNG</button>
+                <button id="print-cert" class="button button-light">Print</button>
+              </div>
+              <small class="muted" style="display:block;margin-top:8px;">Tip: For best print results choose A4 or US Letter with "Scale: 100%".</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tips">
+    <div class="section-heading">
+      <h2>Planting & care tips</h2>
+      <p>Simple steps to make sure your tree thrives.</p>
+    </div>
+
+    <div class="container" style="max-width:var(--max-width);">
+      <div class="tips-grid">
+        <div class="card">
+          <div class="tip-icon">🌱</div>
+          <h3>Choose native</h3>
+          <p class="muted">Native trees support local wildlife and require less maintenance.</p>
+        </div>
+        <div class="card">
+          <div class="tip-icon">💧</div>
+          <h3>Water well</h3>
+          <p class="muted">Water deeply for the first two years — it's better than frequent shallow watering.</p>
+        </div>
+        <div class="card">
+          <div class="tip-icon">🪵</div>
+          <h3>Protect & mulch</h3>
+          <p class="muted">Add mulch and a small fence for protection from pets or rodents.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" aria-labelledby="gallery-heading">
+    <div class="section-heading">
+      <h2 id="gallery-heading">Gallery</h2>
+      <p>Images for inspiration. All images are from Unsplash with open licensing — replace with your own for production.</p>
+    </div>
+
+    <div class="container" style="max-width:var(--max-width);">
+      <div class="gallery" id="gallery-grid" role="list">
+        <figure role="listitem">
+          <img loading="lazy" alt="Close-up of a young sapling growing in soil" src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1200&q=70" />
+          <figcaption>Lively sapling</figcaption>
+        </figure>
+        <figure role="listitem">
+          <img loading="lazy" alt="Person planting a small tree with hands covered in soil" src="https://images.unsplash.com/photo-1523978591478-c753949ff840?auto=format&fit=crop&w=1200&q=70" />
+          <figcaption>Planting day</figcaption>
+        </figure>
+        <figure role="listitem">
+          <img loading="lazy" alt="Green canopy of tall trees" src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=70" />
+          <figcaption>Forest canopy</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      <strong>Vatavaran</strong>
+      <div class="muted">Grow a Birthday Tree</div>
+    </div>
+    <div>
+      <small>&copy; <span id="year"></span> Vatavaran · <a class="back-to-top" href="#home">Back to top</a></small>
+    </div>
+  </footer>
+
+  <script>
+    // Utility: format date like "12 March 2026"
+    function formatDateLocal(d) {
+      try {
+        return new Intl.DateTimeFormat(undefined, { year: 'numeric', month: 'long', day: 'numeric' }).format(d);
+      } catch (e) {
+        return d.toLocaleDateString();
+      }
+    }
+
+    // Update year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Pledges stored in localStorage under key 'vatavaran_pledges'
+    function loadPledges() {
+      try {
+        const raw = localStorage.getItem('vatavaran_pledges') || '[]';
+        return JSON.parse(raw);
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function savePledges(list) {
+      localStorage.setItem('vatavaran_pledges', JSON.stringify(list));
+    }
+
+    function updateStatsUI() {
+      const pledges = loadPledges();
+      document.getElementById('total-pledges').textContent = pledges.length;
+      // For demo, set trees planted equal to pledges; replace with backend call later
+      document.getElementById('trees-planted').textContent = pledges.length;
+    }
+
+    // Certificate rendering
+    const canvas = document.getElementById('certificate-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function renderCertificate({ name, birthday, tree, location, message }) {
+      // Clear and draw background
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      // Background
+      const grd = ctx.createLinearGradient(0,0,canvas.width,canvas.height);
+      grd.addColorStop(0, '#f7fff1');
+      grd.addColorStop(1, '#edf7ea');
+      ctx.fillStyle = grd;
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+
+      // Border
+      ctx.strokeStyle = '#0c4d3a';
+      ctx.lineWidth = 6;
+      ctx.strokeRect(18,18,canvas.width-36,canvas.height-36);
+
+      // Title
+      ctx.fillStyle = '#0f4a37';
+      ctx.font = 'bold 32px serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('Certificate of Planting', canvas.width/2, 90);
+
+      // Subtitle
+      ctx.fillStyle = '#25684f';
+      ctx.font = '600 16px sans-serif';
+      ctx.fillText('This certifies that', canvas.width/2, 130);
+
+      // Name
+      ctx.fillStyle = '#0b3f32';
+      ctx.font = 'bold 28px serif';
+      ctx.fillText(name || '—', canvas.width/2, 180);
+
+      // Body
+      ctx.font = '16px sans-serif';
+      ctx.fillStyle = '#2f6b57';
+      const plantedText = `${name || 'They'} pledged to plant a ${tree || 'tree'} on ${birthday ? formatDateLocal(new Date(birthday)) : 'their birthday'}.`;
+      wrapText(ctx, plantedText, canvas.width/2, 220, canvas.width - 160, 20);
+
+      // Location and message
+      ctx.font = '14px sans-serif';
+      ctx.fillStyle = '#567b68';
+      const locText = location ? `Location: ${location}` : '';
+      if (locText) ctx.fillText(locText, canvas.width/2, canvas.height - 110);
+
+      if (message) {
+        ctx.fillStyle = '#285e48';
+        wrapText(ctx, `"${message}"`, canvas.width/2, canvas.height - 80, canvas.width - 160, 18);
+      }
+
+      // Small footer
+      ctx.fillStyle = '#2e6a55';
+      ctx.font = '12px sans-serif';
+      ctx.fillText(`Issued by Vatavaran · ${new Date().getFullYear()}`, canvas.width/2, canvas.height - 30);
+    }
+
+    // Text wrapping helper for centered text
+    function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+      const words = text.split(' ');
+      let line = '';
+      const lines = [];
+      for (let n = 0; n < words.length; n++) {
+        const testLine = line + words[n] + ' ';
+        const metrics = ctx.measureText(testLine);
+        const testWidth = metrics.width;
+        if (testWidth > maxWidth && n > 0) {
+          lines.push(line.trim());
+          line = words[n] + ' ';
+        } else {
+          line = testLine;
+        }
+      }
+      lines.push(line.trim());
+      // Draw each line
+      for (let i = 0; i < lines.length; i++) {
+        ctx.fillText(lines[i], x, y + (i * lineHeight));
+      }
+    }
+
+    // Form handling
+    const form = document.getElementById('pledge-form');
+    const notice = document.getElementById('pledge-notice');
+    const certCard = document.getElementById('certificate-card');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = (document.getElementById('name').value || '').trim();
+      const birthday = document.getElementById('birthday').value;
+      const tree = document.getElementById('tree').value || 'tree';
+      const location = document.getElementById('location').value || '';
+      const message = document.getElementById('message').value || '';
+
+      if (!name || !birthday) {
+        showNotice('Please provide your name and birthday.', true);
+        return;
+      }
+
+      const pledges = loadPledges();
+      const pledge = { id: Date.now(), name, birthday, tree, location, message };
+      pledges.push(pledge);
+      savePledges(pledges);
+      updateStatsUI();
+
+      // Render certificate
+      renderCertificate({ name, birthday, tree, location, message });
+      certCard.style.display = 'block';
+      showNotice('Pledge recorded locally. Your certificate is ready below.', false);
+    });
+
+    // Show notice
+    function showNotice(text, isError) {
+      notice.textContent = text;
+      notice.style.display = 'block';
+      notice.style.background = isError ? '#ffd6d6' : '#e2f8c8';
+      notice.style.color = isError ? '#7a1d1d' : 'var(--deep)';
+      setTimeout(() => {
+        // keep visible for 5s
+        notice.style.opacity = '1';
+        setTimeout(() => { notice.style.display = 'none'; }, 5000);
+      }, 150);
+    }
+
+    // Clear pledges
+    document.getElementById('clear-pledges').addEventListener('click', function () {
+      if (!confirm('Clear all local pledges? This cannot be undone.')) return;
+      localStorage.removeItem('vatavaran_pledges');
+      updateStatsUI();
+      document.getElementById('certificate-card').style.display = 'none';
+      showNotice('Local pledges cleared.', false);
+    });
+
+    // Download & print
+    document.getElementById('download-cert').addEventListener('click', function () {
+      const link = document.createElement('a');
+      link.download = 'vatavaran_certificate.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+
+    document.getElementById('print-cert').addEventListener('click', function () {
+      const data = canvas.toDataURL('image/png');
+      const w = window.open('', '_blank');
+      w.document.write('<title>Print Certificate</title>');
+      w.document.write('<img src="' + data + '" style="max-width:100%;height:auto" />');
+      w.document.close();
+      w.focus();
+      setTimeout(() => w.print(), 500);
+    });
+
+    // Initialize on load
+    updateStatsUI();
+
+    // Start pledge button focuses form
+    document.getElementById('start-pledge').addEventListener('click', function (e) {
+      // allow anchor to jump, then focus first input
+      setTimeout(() => document.getElementById('name').focus(), 300);
+    });
+
+    // Accessibility: keyboard shortcut 'P' focuses the form name field
+    window.addEventListener('keydown', (ev) => {
+      if (ev.key === 'p' || ev.key === 'P') {
+        document.getElementById('name').focus();
+      }
+    });
+  </script>
+</body>
+</html><!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Vatavaran encourages people to plant a tree on their birthday." />
+  <meta property="og:title" content="Vatavaran | Grow a Birthday Tree" />
+  <meta property="og:description" content="Pledge a tree on your birthday and get a printable certificate." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=1200&q=80" />
+  <title>Vatavaran | Grow a Birthday Tree</title>
+
+  <style>
+    :root {
+      --forest: #125c3f;
+      --deep: #092f25;
+      --leaf: #dfff72;
+      --mint: #eaf7dc;
+      --cream: #fffaf0;
+      --orange: #ff8552;
+      --text: #17352a;
+      --white: #ffffff;
+      --shadow: 0 18px 45px rgba(13, 73, 45, 0.14);
+      --max-width: 1100px;
+    }
+
+    * { box-sizing: border-box; scroll-behavior: smooth; }
+    html,body { height: 100%; }
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      line-height: 1.6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    a { color: inherit; }
+    .container { max-width: var(--max-width); margin: 0 auto; }
+
+    nav {
+      position: absolute;
+      z-index: 10;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--white);
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .logo .mark {
+      width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--leaf),var(--forest));box-shadow:0 6px 18px rgba(0,0,0,0.12);
+      display:inline-block;
+    }
+    .logo span { color: var(--leaf); }
+
+    .nav-links { display:flex; align-items:center; gap:18px; }
+    .nav-links a { color: white; text-decoration:none; font-weight:700; font-size:14px; }
+    .nav-links a:focus { outline:3px solid rgba(223,255,114,0.45); border-radius:6px; }
+
+    .hero {
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      padding: 150px 7% 90px;
+      color: white;
+      background:
+        linear-gradient(90deg, rgba(5, 48, 35, 0.94), rgba(5, 48, 35, 0.25)),
+        url("https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=1800&q=85")
+        center / cover no-repeat;
+    }
+
+    .hero-content { max-width: 680px; }
+    .eyebrow { color: var(--leaf); font-size: 13px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
+    .hero h1 { margin: 18px 0; font-size: clamp(36px, 6vw, 72px); line-height: 0.98; }
+    .hero p { max-width: 570px; font-size: clamp(16px, 2vw, 20px); line-height: 1.6; color: rgba(255,255,255,0.95); }
+
+    .button {
+      display:inline-block; border:0; border-radius:99px; padding:12px 20px; margin-top:14px;
+      background:var(--leaf); color:var(--deep); font-size:16px; font-weight:900; text-decoration:none; cursor:pointer;
+      transition:transform .16s ease, box-shadow .16s ease;
+    }
+    .button:focus { outline:3px solid rgba(0,0,0,0.08); }
+    .button:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+
+    .button-light { margin-left:8px; background: white; color:var(--forest); font-weight:700; }
+    .hero-actions { margin-top: 18px; display:flex; gap:10px; flex-wrap:wrap; }
+
+    .stats {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:18px; padding:28px 7%; background:var(--forest); color:white; text-align:center;
+    }
+    .stat-number { display:block; color:var(--leaf); font-size:36px; font-weight:900; }
+
+    section { padding: 85px 7%; }
+    .section-heading { max-width:700px; margin:0 auto 42px; text-align:center; }
+    .section-heading h2 { margin:8px 0 12px; font-size:44px; line-height:1.1; }
+    .section-heading p { margin:0; color:#274735; }
+
+    .two-column { display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:38px; max-width:var(--max-width); margin:0 auto; }
+    .two-column h2 { font-size: clamp(28px,4vw,44px); line-height:1.05; }
+    .card { padding:30px; border-radius:24px; background:white; box-shadow:var(--shadow); }
+    .pledge-card { border-left:8px solid var(--orange); }
+
+    .mint-section { background:var(--mint); }
+
+    .form { display:grid; gap:12px; }
+    .form label { font-weight:700; font-size:14px; color:var(--deep); }
+    .form input, .form textarea, .form select {
+      width:100%; padding:12px; border:1px solid #d3e0d2; border-radius:12px; background:white; color:var(--text); font:inherit;
+    }
+    .form textarea { min-height:120px; resize:vertical; }
+    .form input:focus, .form textarea:focus, .form select:focus { outline:3px solid rgba(223,255,114,0.7); border-color:var(--forest); }
+
+    .notice { display:none; margin-top:16px; padding:16px; border-radius:14px; background:#e2f8c8; color:var(--deep); }
+    .certificate { display:none; margin-top:18px; padding:24px; border:4px solid var(--forest); border-radius:18px; background:#fffdf2; text-align:center; }
+
+    .certificate h3 { margin:8px 0; color:var(--forest); font-size:26px; }
+    .certificate small { color:#557263; }
+
+    .tips-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .tip-icon { font-size:34px; }
+    .tip h3 { margin-bottom:4px; }
+
+    .gallery { display:grid; grid-template-columns:repeat(3,1fr); gap:17px; }
+    .gallery figure { margin:0; overflow:hidden; border-radius:20px; background:white; box-shadow:var(--shadow); display:flex; flex-direction:column; }
+    .gallery img { width:100%; height:240px; display:block; object-fit:cover; aspect-ratio: 4/3; }
+    .gallery figcaption { padding:14px; font-weight:700; color:var(--deep); }
+
+    footer { display:flex; justify-content:space-between; gap:20px; padding:38px 7%; background:var(--deep); color:white; flex-wrap:wrap; }
+    footer small { opacity:0.85; }
+
+    .back-to-top { color:var(--leaf); text-decoration:none; }
+
+    /* Responsive */
+    @media (max-width: 1000px) {
+      .two-column { grid-template-columns: 1fr; padding: 0 8px; }
+      .stats { grid-template-columns: 1fr 1fr 1fr; gap:10px; padding:20px 6%; }
+      .gallery img { height:220px; }
+      .hero { padding:110px 6% 70px; min-height:640px; }
+    }
+
+    @media (max-width: 760px) {
+      nav { padding: 18px 5%; }
+      .nav-links { display:none; }
+      .hero { min-height: 720px; padding:120px 6% 60px; }
+      .stats, .two-column, .tips-grid, .gallery { grid-template-columns:1fr; }
+      section { padding: 65px 6%; }
+      .section-heading h2, .two-column h2 { font-size: 32px; }
+      .gallery img { height:200px; }
+    }
+
+    /* Utility */
+    .muted { color:#56735f; }
+    .text-center { text-align:center; }
+    .sr-only { position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0; }
+  </style>
+</head>
+<body>
+  <nav role="navigation" aria-label="Main navigation">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+      <div class="logo" aria-hidden="false">
+        <span class="mark" aria-hidden="true"></span>
+        <span>Vatavaran <span>Grow</span></span>
+      </div>
+
+      <div class="nav-links" aria-hidden="true">
+        <a href="#about">About</a>
+        <a href="#pledge">Pledge</a>
+        <a href="#gallery">Gallery</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" role="banner" id="home">
+    <div class="hero-content container">
+      <div class="eyebrow">Plant on your birthday</div>
+      <h1>Grow a tree. Celebrate your birthday. Give back to the earth.</h1>
+      <p>Vatavaran helps you pledge a tree on your birthday — we'll help you record it, get a printable certificate, and share inspiration for planting native trees.</p>
+
+      <div class="hero-actions" role="group" aria-label="Call to action">
+        <a class="button" href="#pledge" id="start-pledge">Pledge a Tree</a>
+        <a class="button button-light" href="#about">Learn More</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="stats" aria-label="Key stats">
+    <div>
+      <span class="stat-number" id="total-pledges">0</span>
+      <div class="muted">Pledges</div>
+    </div>
+    <div>
+      <span class="stat-number" id="trees-planted">0</span>
+      <div class="muted">Trees recorded</div>
+    </div>
+    <div>
+      <span class="stat-number" id="countries">1</span>
+      <div class="muted">Places</div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-heading">
+      <h2>About Vatavaran</h2>
+      <p>We encourage people to plant a native tree on their birthday. Pledge, plant, and get a downloadable certificate you can print or share.</p>
+    </div>
+
+    <div class="two-column">
+      <div>
+        <div class="card pledge-card" aria-labelledby="pledge-card-title">
+          <h3 id="pledge-card-title">Why pledge?</h3>
+          <p>Birthdays are personal milestones — turning them into planting days helps our planet and creates a living legacy you can watch grow.</p>
+          <ul>
+            <li>Quick record of your pledge</li>
+            <li>Printable certificate for remembrance</li>
+            <li>Simple tips for planting and care</li>
+          </ul>
+        </div>
+      </div>
+
+      <aside class="card" aria-labelledby="how-to-title">
+        <h3 id="how-to-title">How it works</h3>
+        <ol>
+          <li>Fill in the pledge form with your name and birthday.</li>
+          <li>Choose a tree type and location (optional).</li>
+          <li>Download your certificate and plant on your birthday — or share with a friend.</li>
+        </ol>
+      </aside>
+    </div>
+  </section>
+
+  <section id="pledge" class="mint-section" aria-labelledby="pledge-heading">
+    <div class="section-heading">
+      <h2 id="pledge-heading">Make a Pledge</h2>
+      <p>Fill the short form below. Your pledge is stored in your browser and used to create a printable certificate instantly.</p>
+    </div>
+
+    <div class="container" style="max-width:880px;">
+      <div class="two-column" style="grid-template-columns:1fr 400px;">
+        <div>
+          <div class="card">
+            <form id="pledge-form" class="form" aria-describedby="pledge-desc">
+              <p id="pledge-desc" class="sr-only">Form to pledge a birthday tree. All fields except message are required.</p>
+
+              <div>
+                <label for="name">Your name</label>
+                <input id="name" name="name" type="text" placeholder="Your full name" required />
+              </div>
+
+              <div>
+                <label for="birthday">Birthday</label>
+                <input id="birthday" name="birthday" type="date" required />
+              </div>
+
+              <div>
+                <label for="tree">Tree type</label>
+                <select id="tree" name="tree" required>
+                  <option value="">Choose a species (native preferred)</option>
+                  <option>Neem</option>
+                  <option>Mango</option>
+                  <option>Peepal</option>
+                  <option>Jamun</option>
+                  <option>Local/native species</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="location">Location (city / region)</label>
+                <input id="location" name="location" type="text" placeholder="Optional — e.g., Mumbai, India" />
+              </div>
+
+              <div>
+                <label for="message">Message on certificate</label>
+                <textarea id="message" name="message" placeholder="Optional short message (e.g., 'Planted with love, 2026')"></textarea>
+              </div>
+
+              <div style="display:flex;gap:10px;align-items:center;">
+                <button type="submit" class="button" aria-live="polite">Create Certificate</button>
+                <button type="button" id="clear-pledges" class="button button-light" title="Clear local pledges">Clear</button>
+              </div>
+
+              <div class="notice" id="pledge-notice" role="status" aria-live="polite"></div>
+            </form>
+          </div>
+        </div>
+
+        <div>
+          <div class="card" aria-live="polite">
+            <h3>Your Certificate</h3>
+            <p class="muted">After creating a certificate you'll see a preview below with options to download or print.</p>
+
+            <div class="certificate" id="certificate-card" role="region" aria-labelledby="cert-title">
+              <h3 id="cert-title">Certificate preview</h3>
+              <canvas id="certificate-canvas" width="800" height="560" style="max-width:100%;border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,0.08);"></canvas>
+              <div style="margin-top:12px;display:flex;gap:8px;justify-content:center;">
+                <button id="download-cert" class="button">Download PNG</button>
+                <button id="print-cert" class="button button-light">Print</button>
+              </div>
+              <small class="muted" style="display:block;margin-top:8px;">Tip: For best print results choose A4 or US Letter with "Scale: 100%".</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tips">
+    <div class="section-heading">
+      <h2>Planting & care tips</h2>
+      <p>Simple steps to make sure your tree thrives.</p>
+    </div>
+
+    <div class="container" style="max-width:var(--max-width);">
+      <div class="tips-grid">
+        <div class="card">
+          <div class="tip-icon">🌱</div>
+          <h3>Choose native</h3>
+          <p class="muted">Native trees support local wildlife and require less maintenance.</p>
+        </div>
+        <div class="card">
+          <div class="tip-icon">💧</div>
+          <h3>Water well</h3>
+          <p class="muted">Water deeply for the first two years — it's better than frequent shallow watering.</p>
+        </div>
+        <div class="card">
+          <div class="tip-icon">🪵</div>
+          <h3>Protect & mulch</h3>
+          <p class="muted">Add mulch and a small fence for protection from pets or rodents.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" aria-labelledby="gallery-heading">
+    <div class="section-heading">
+      <h2 id="gallery-heading">Gallery</h2>
+      <p>Images for inspiration. All images are from Unsplash with open licensing — replace with your own for production.</p>
+    </div>
+
+    <div class="container" style="max-width:var(--max-width);">
+      <div class="gallery" id="gallery-grid" role="list">
+        <figure role="listitem">
+          <img loading="lazy" alt="Close-up of a young sapling growing in soil" src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1200&q=70" />
+          <figcaption>Lively sapling</figcaption>
+        </figure>
+        <figure role="listitem">
+          <img loading="lazy" alt="Person planting a small tree with hands covered in soil" src="https://images.unsplash.com/photo-1523978591478-c753949ff840?auto=format&fit=crop&w=1200&q=70" />
+          <figcaption>Planting day</figcaption>
+        </figure>
+        <figure role="listitem">
+          <img loading="lazy" alt="Green canopy of tall trees" src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=70" />
+          <figcaption>Forest canopy</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      <strong>Vatavaran</strong>
+      <div class="muted">Grow a Birthday Tree</div>
+    </div>
+    <div>
+      <small>&copy; <span id="year"></span> Vatavaran · <a class="back-to-top" href="#home">Back to top</a></small>
+    </div>
+  </footer>
+
+  <script>
+    // Utility: format date like "12 March 2026"
+    function formatDateLocal(d) {
+      try {
+        return new Intl.DateTimeFormat(undefined, { year: 'numeric', month: 'long', day: 'numeric' }).format(d);
+      } catch (e) {
+        return d.toLocaleDateString();
+      }
+    }
+
+    // Update year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Pledges stored in localStorage under key 'vatavaran_pledges'
+    function loadPledges() {
+      try {
+        const raw = localStorage.getItem('vatavaran_pledges') || '[]';
+        return JSON.parse(raw);
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function savePledges(list) {
+      localStorage.setItem('vatavaran_pledges', JSON.stringify(list));
+    }
+
+    function updateStatsUI() {
+      const pledges = loadPledges();
+      document.getElementById('total-pledges').textContent = pledges.length;
+      // For demo, set trees planted equal to pledges; replace with backend call later
+      document.getElementById('trees-planted').textContent = pledges.length;
+    }
+
+    // Certificate rendering
+    const canvas = document.getElementById('certificate-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function renderCertificate({ name, birthday, tree, location, message }) {
+      // Clear and draw background
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      // Background
+      const grd = ctx.createLinearGradient(0,0,canvas.width,canvas.height);
+      grd.addColorStop(0, '#f7fff1');
+      grd.addColorStop(1, '#edf7ea');
+      ctx.fillStyle = grd;
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+
+      // Border
+      ctx.strokeStyle = '#0c4d3a';
+      ctx.lineWidth = 6;
+      ctx.strokeRect(18,18,canvas.width-36,canvas.height-36);
+
+      // Title
+      ctx.fillStyle = '#0f4a37';
+      ctx.font = 'bold 32px serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('Certificate of Planting', canvas.width/2, 90);
+
+      // Subtitle
+      ctx.fillStyle = '#25684f';
+      ctx.font = '600 16px sans-serif';
+      ctx.fillText('This certifies that', canvas.width/2, 130);
+
+      // Name
+      ctx.fillStyle = '#0b3f32';
+      ctx.font = 'bold 28px serif';
+      ctx.fillText(name || '—', canvas.width/2, 180);
+
+      // Body
+      ctx.font = '16px sans-serif';
+      ctx.fillStyle = '#2f6b57';
+      const plantedText = `${name || 'They'} pledged to plant a ${tree || 'tree'} on ${birthday ? formatDateLocal(new Date(birthday)) : 'their birthday'}.`;
+      wrapText(ctx, plantedText, canvas.width/2, 220, canvas.width - 160, 20);
+
+      // Location and message
+      ctx.font = '14px sans-serif';
+      ctx.fillStyle = '#567b68';
+      const locText = location ? `Location: ${location}` : '';
+      if (locText) ctx.fillText(locText, canvas.width/2, canvas.height - 110);
+
+      if (message) {
+        ctx.fillStyle = '#285e48';
+        wrapText(ctx, `"${message}"`, canvas.width/2, canvas.height - 80, canvas.width - 160, 18);
+      }
+
+      // Small footer
+      ctx.fillStyle = '#2e6a55';
+      ctx.font = '12px sans-serif';
+      ctx.fillText(`Issued by Vatavaran · ${new Date().getFullYear()}`, canvas.width/2, canvas.height - 30);
+    }
+
+    // Text wrapping helper for centered text
+    function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+      const words = text.split(' ');
+      let line = '';
+      const lines = [];
+      for (let n = 0; n < words.length; n++) {
+        const testLine = line + words[n] + ' ';
+        const metrics = ctx.measureText(testLine);
+        const testWidth = metrics.width;
+        if (testWidth > maxWidth && n > 0) {
+          lines.push(line.trim());
+          line = words[n] + ' ';
+        } else {
+          line = testLine;
+        }
+      }
+      lines.push(line.trim());
+      // Draw each line
+      for (let i = 0; i < lines.length; i++) {
+        ctx.fillText(lines[i], x, y + (i * lineHeight));
+      }
+    }
+
+    // Form handling
+    const form = document.getElementById('pledge-form');
+    const notice = document.getElementById('pledge-notice');
+    const certCard = document.getElementById('certificate-card');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = (document.getElementById('name').value || '').trim();
+      const birthday = document.getElementById('birthday').value;
+      const tree = document.getElementById('tree').value || 'tree';
+      const location = document.getElementById('location').value || '';
+      const message = document.getElementById('message').value || '';
+
+      if (!name || !birthday) {
+        showNotice('Please provide your name and birthday.', true);
+        return;
+      }
+
+      const pledges = loadPledges();
+      const pledge = { id: Date.now(), name, birthday, tree, location, message };
+      pledges.push(pledge);
+      savePledges(pledges);
+      updateStatsUI();
+
+      // Render certificate
+      renderCertificate({ name, birthday, tree, location, message });
+      certCard.style.display = 'block';
+      showNotice('Pledge recorded locally. Your certificate is ready below.', false);
+    });
+
+    // Show notice
+    function showNotice(text, isError) {
+      notice.textContent = text;
+      notice.style.display = 'block';
+      notice.style.background = isError ? '#ffd6d6' : '#e2f8c8';
+      notice.style.color = isError ? '#7a1d1d' : 'var(--deep)';
+      setTimeout(() => {
+        // keep visible for 5s
+        notice.style.opacity = '1';
+        setTimeout(() => { notice.style.display = 'none'; }, 5000);
+      }, 150);
+    }
+
+    // Clear pledges
+    document.getElementById('clear-pledges').addEventListener('click', function () {
+      if (!confirm('Clear all local pledges? This cannot be undone.')) return;
+      localStorage.removeItem('vatavaran_pledges');
+      updateStatsUI();
+      document.getElementById('certificate-card').style.display = 'none';
+      showNotice('Local pledges cleared.', false);
+    });
+
+    // Download & print
+    document.getElementById('download-cert').addEventListener('click', function () {
+      const link = document.createElement('a');
+      link.download = 'vatavaran_certificate.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+
+    document.getElementById('print-cert').addEventListener('click', function () {
+      const data = canvas.toDataURL('image/png');
+      const w = window.open('', '_blank');
+      w.document.write('<title>Print Certificate</title>');
+      w.document.write('<img src="' + data + '" style="max-width:100%;height:auto" />');
+      w.document.close();
+      w.focus();
+      setTimeout(() => w.print(), 500);
+    });
+
+    // Initialize on load
+    updateStatsUI();
+
+    // Start pledge button focuses form
+    document.getElementById('start-pledge').addEventListener('click', function (e) {
+      // allow anchor to jump, then focus first input
+      setTimeout(() => document.getElementById('name').focus(), 300);
+    });
+
+    // Accessibility: keyboard shortcut 'P' focuses the form name field
+    window.addEventListener('keydown', (ev) => {
+      if (ev.key === 'p' || ev.key === 'P') {
+        document.getElementById('name').focus();
+      }
+    });
+  </script>
+</body>
+</html>
