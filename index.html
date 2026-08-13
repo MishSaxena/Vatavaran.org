@@ -410,11 +410,18 @@ const SUPABASE_KEY = "sb_publishable_DGw4SLgsENIYhZNsEO0Qjg_kOD1DzYI";
       localStorage.setItem('vatavaran_pledges', JSON.stringify(list));
     }
 
-    function updateStatsUI() {
-      const pledges = loadPledges();
-      document.getElementById('total-pledges').textContent = pledges.length;
-      // For demo, set trees planted equal to pledges; replace with backend call later
-      document.getElementById('trees-planted').textContent = pledges.length;
+    function updateStatsUI(increment = false) {
+  const totalEl = document.getElementById('total-pledges');
+  const treesEl = document.getElementById('trees-planted');
+
+  let total = parseInt(totalEl.textContent, 10) || 0;
+
+  if (increment) {
+    total += 1;
+  }
+
+  totalEl.textContent = total;
+  treesEl.textContent = total;
     }
 
     // Certificate rendering
@@ -503,7 +510,7 @@ const SUPABASE_KEY = "sb_publishable_DGw4SLgsENIYhZNsEO0Qjg_kOD1DzYI";
     const notice = document.getElementById('pledge-notice');
     const certCard = document.getElementById('certificate-card');
 
-    form.addEventListener('submit', function (e) {
+    form.addEventListener('submit', async function (e) {
       e.preventDefault();
       const name = (document.getElementById('name').value || '').trim();
       const birthday = document.getElementById('birthday').value;
@@ -516,11 +523,22 @@ const SUPABASE_KEY = "sb_publishable_DGw4SLgsENIYhZNsEO0Qjg_kOD1DzYI";
         return;
       }
 
-      const pledges = loadPledges();
-      const pledge = { id: Date.now(), name, birthday, tree, location, message };
-      pledges.push(pledge);
-      savePledges(pledges);
-      updateStatsUI();
+      const pledge = {
+  name,
+  birthday,
+  tree,
+  location,
+  message
+};
+
+const saved = await savePledge(pledge);
+
+if (!saved) {
+  showNotice('Your pledge could not be recorded. Please try again.', true);
+  return;
+}
+
+updateStatsUI(true);
 
       // Render certificate
       renderCertificate({ name, birthday, tree, location, message });
