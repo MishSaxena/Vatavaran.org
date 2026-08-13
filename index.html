@@ -409,7 +409,12 @@ const SUPABASE_KEY = "sb_publishable_DGw4SLgsENIYhZNsEO0Qjg_kOD1DzYI";
     function savePledges(list) {
       localStorage.setItem('vatavaran_pledges', JSON.stringify(list));
     }
-
+async function savePledge(pledge) {
+  const pledges = loadPledges();
+  pledges.push(pledge);
+  savePledges(pledges);
+  return true;
+}
     function updateStatsUI(increment = false) {
   const totalEl = document.getElementById('total-pledges');
   const treesEl = document.getElementById('trees-planted');
